@@ -88,6 +88,10 @@
       background: #FF6600;
       color: white;      
     }
+
+    .center {
+      text-align: center;
+    }
    </style>
    <!-- END REDOX: typeahead styling -->
 </head>
@@ -102,10 +106,11 @@ var WRInitTime=(new Date()).getTime();
 <!-- REDOX: search bar -->
 <div class="search-form-wrapper">
   <h5>Show HN: Search bar showing relevant and highlighted results after the first keystroke.</h5>
-  <center>See <a href="https://github.com/redox/mojombo.github.io/commit/070de82864fb17fb1f36f623e3136e398503370c">my commit to add this search-form</a></center>
+  <div class="center">See <a href="https://github.com/redox/mojombo.github.io/commit/070de82864fb17fb1f36f623e3136e398503370c">my commit to add this search-form</a></div>
   <div class="search-form">
     <input type="text" name="q" class="search-input" placeholder="Search" id="blog-search-input" />
   </div>
+  <p class="center">Articles from <a href="http://tom.preston-werner.com">Tom Preston-Werner</a></p>
 </div>
 <hr />
 <script>
@@ -168,7 +173,7 @@ var WRInitTime=(new Date()).getTime();
   </div>
 </div>
 
-<a href="http://github.com/redox/mojombo.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+<a href="http://github.com/redox/mojombo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
 
 <!-- ClickTale Bottom part -->
 <div id="ClickTaleDiv" style="display: none;"></div>
