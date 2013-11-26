@@ -1,2 +1,6 @@
 markdown: rdiscount
 pygments: true
+algolia:
+  application_id: 7OS9QEQF4C
+  search_only_api_key: 00bff8179dba272179292106118fad8a
+  index_name: blog_posts

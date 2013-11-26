@@ -16,6 +16,80 @@
    <!-- Typekit -->
    <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+   <!-- REDOX: add JS dependencies -->
+   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+   <script type="text/javascript" src="/js/typeahead.min.js"></script>
+   <script type="text/javascript" src="/js/hogan.js"></script>
+   <script type="text/javascript" src="/js/algoliasearch.min.js"></script>
+   <!-- END REDOX: add JS dependencies -->
+
+   <!-- REDOX: typeahead styling -->
+   <style type="text/css">
+    .search-form-wrapper {
+      width: 600px;
+      margin: 30px auto;
+      border: 3px solid #FF6600;
+    }
+
+    .search-form-wrapper h5 {
+      color: #FF6600;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .search-form {
+      height: 40px;
+      margin: 20px;
+    }
+
+    .twitter-typeahead, input.search-input, .tt-hint, .tt-query {
+      width: 100%;
+      height: 100%;
+      font-size: 24px;
+    }
+
+    .tt-dropdown-menu {
+      right: 0px !important;
+    }
+
+    .tt-suggestions {
+      font-size: 18px;
+      background: white;
+      margin-top: 2px;
+      padding: 5px 0;
+      border: 1px solid rgba(0,0,0,.2);
+    }
+
+    .tt-suggestion .hit {
+      margin: 10px;
+      padding: 10px;
+    }
+
+    .tt-suggestion .hit .url {
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .tt-suggestion .hit .title {
+      margin: 0px;
+      font-size: 18px;
+      text-align: left;
+      color: #080808;
+      font-weight: normal;
+    }
+
+    .tt-suggestion .hit em {
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    .tt-is-under-cursor {
+      background: #FF6600;
+      color: white;      
+    }
+   </style>
+   <!-- END REDOX: typeahead styling -->
 </head>
 <body>
 
@@ -24,6 +98,44 @@
 var WRInitTime=(new Date()).getTime();
 </script>
 <!-- ClickTale end of Top part -->
+
+<!-- REDOX: search bar -->
+<div class="search-form-wrapper">
+  <h5>Show HN: Search bar showing relevant and highlighted results after the first keystroke.</h5>
+  <center>See <a href="">my commit to add this search-form</a></center>
+  <div class="search-form">
+    <input type="text" name="q" class="search-input" placeholder="Search" id="blog-search-input" />
+  </div>
+</div>
+<hr />
+<script>
+  var apiClient = new AlgoliaSearch('{{ site.algolia.application_id }}', '{{ site.algolia.search_only_api_key }}');
+  var idx = apiClient.initIndex('{{ site.algolia.index_name }}');
+  function go() {
+    idx.search($('#blog-search-input').val(), function(success, content) {
+      if (success && content.hits.length > 0) {
+        // for now, go to the first match
+        window.location.href = content.hits[0].url;
+      }
+    });
+  }
+  $('#blog-search-input').typeahead({
+    name: 'blogposts',
+    remote: idx.getTypeaheadTransport(),
+    engine: Hogan,
+    template: '<div class="hit">' +
+      '<div class="title">{{ "{{{" }} _highlightResult.title.value }}}</div>' +
+      '<div class="url">{{ "{{{" }} _highlightResult.url.value }}}</div>' +
+    '</div>'
+  }).on('keydown', function(e) {
+    if (e.which == 13) {
+      go();
+    }
+  }).on('typeahead:selected', function(e) {
+    go();
+  }).focus();
+</script>
+<!-- END REDOX: search bar -->
 
 <div class="site">
   <div class="title">
@@ -56,7 +168,7 @@ var WRInitTime=(new Date()).getTime();
   </div>
 </div>
 
-<a href="http://github.com/mojombo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+<a href="http://github.com/redox/mojombo.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
 
 <!-- ClickTale Bottom part -->
 <div id="ClickTaleDiv" style="display: none;"></div>
