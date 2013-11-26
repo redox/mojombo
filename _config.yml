@@ -1,3 +1,4 @@
+baseurl: /mojombo
 markdown: rdiscount
 pygments: true
 algolia:

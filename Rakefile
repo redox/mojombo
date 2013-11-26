@@ -5,7 +5,7 @@ require "bundler/setup"
 require "jekyll"
 require "algoliasearch"
 
-GITHUB_REPONAME = "redox/mojombo.github.io"
+GITHUB_REPONAME = "redox/mojombo"
 
 namespace :site do
   jekyll_config = Jekyll.configuration(source: '.', destination: '_site')
