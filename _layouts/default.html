@@ -25,13 +25,6 @@
     .search-form-wrapper {
       width: 600px;
       margin: 30px auto;
-      border: 3px solid #FF6600;
-    }
-
-    .search-form-wrapper h5 {
-      color: #FF6600;
-      font-size: 16px;
-      margin-top: 10px;
     }
 
     .search-form {
@@ -101,12 +94,13 @@ var WRInitTime=(new Date()).getTime();
 
 <!-- REDOX: search bar -->
 <div class="search-form-wrapper">
-  <h5>Show HN: Search bar showing relevant and highlighted results after the first keystroke.</h5>
-  <div class="center">See <a href="https://github.com/redox/mojombo.github.io/commit/070de82864fb17fb1f36f623e3136e398503370c">my commit to add this search-form</a></div>
   <div class="search-form">
-    <input type="text" name="q" class="search-input" placeholder="Search" id="blog-search-input" />
+    <input type="text" name="q" class="search-input" placeholder="Jump to another article" id="blog-search-input" />
   </div>
-  <p class="center">Articles from <a href="http://tom.preston-werner.com">Tom Preston-Werner</a></p>
+  <p class="center">
+    Articles from <a href="http://tom.preston-werner.com">Tom Preston-Werner</a>,
+    see <a href="https://github.com/redox/mojombo.github.io/commit/070de82864fb17fb1f36f623e3136e398503370c">my commit to add this search-form</a>.
+  </p>
 </div>
 <hr />
 <script>
