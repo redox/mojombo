@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Designer, Architect, Developer</title>
+   <meta name="author" content="Tom Preston-Werner" />
+   <link href="http://feeds.feedburner.com/tom-preston-werner" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
+   <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/mojombo/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/mojombo/css/screen.css" type="text/css" media="screen, projection" />
+
+   <!-- REDOX: add JS dependencies -->
+   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+   <script type="text/javascript" src="/mojombo/js/typeahead.min.js"></script>
+   <script type="text/javascript" src="/mojombo/js/hogan.js"></script>
+   <script type="text/javascript" src="/mojombo/js/algoliasearch.min.js"></script>
+   <!-- END REDOX: add JS dependencies -->
+
+   <!-- REDOX: typeahead styling -->
+   <style type="text/css">
+    .search-form-wrapper {
+      width: 600px;
+      margin: 30px auto;
+    }
+
+    .search-form {
+      height: 40px;
+      margin: 20px;
+    }
+
+    .twitter-typeahead, input.search-input, .tt-hint, .tt-query {
+      width: 100%;
+      height: 100%;
+      font-size: 20px;
+      font-weight: 300;
+    }
+
+    input.search-input, .tt-hint, .tt-query {
+      padding-left: 10px;
+    }
+
+    .tt-dropdown-menu {
+      right: 0px !important;
+    }
+
+    .tt-suggestions {
+      font-size: 18px;
+      background: white;
+      margin-top: 2px;
+      padding: 5px 0;
+      border: 1px solid rgba(0,0,0,.2);
+    }
+
+    .tt-suggestion .hit {
+      margin: 10px;
+      padding: 10px;
+    }
+
+    .tt-suggestion .hit .url {
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .tt-suggestion .hit .title {
+      margin: 0px;
+      font-size: 18px;
+      text-align: left;
+      color: #080808;
+      font-weight: normal;
+    }
+
+    .tt-suggestion .hit em {
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    .tt-is-under-cursor {
+      background: #FF6600;
+      color: white;      
+    }
+
+    .center {
+      text-align: center;
+    }
+   </style>
+   <!-- END REDOX: typeahead styling -->
+</head>
+<body>
+
+<!-- ClickTale Top part -->
+<script type="text/javascript">
+var WRInitTime=(new Date()).getTime();
+</script>
+<!-- ClickTale end of Top part -->
+
+<!-- REDOX: search bar -->
+<div class="search-form-wrapper">
+  <div class="search-form">
+    <input type="text" name="q" class="search-input" placeholder="Jump to another article" id="blog-search-input" />
+  </div>
+  <p class="center">
+    Articles from <a href="http://tom.preston-werner.com">Tom Preston-Werner</a>,
+    see <a href="https://github.com/redox/mojombo.github.io/commit/070de82864fb17fb1f36f623e3136e398503370c">my commit to add this search-form</a>.
+  </p>
+</div>
+<hr />
+<script>
+  var apiClient = new AlgoliaSearch('7OS9QEQF4C', '00bff8179dba272179292106118fad8a');
+  var idx = apiClient.initIndex('blog_posts');
+  function go() {
+    idx.search($('#blog-search-input').val(), function(success, content) {
+      if (success && content.hits.length > 0) {
+        // for now, go to the first match
+        window.location.href = '/mojombo' + content.hits[0].url;
+      }
+    });
+  }
+  $('#blog-search-input').typeahead({
+    name: 'blogposts',
+    remote: idx.getTypeaheadTransport(),
+    engine: Hogan,
+    template: '<div class="hit">' +
+      '<div class="title">{{{ _highlightResult.title.value }}}</div>' +
+      '<div class="url">{{{ _highlightResult.url.value }}}</div>' +
+    '</div>'
+  }).on('keydown', function(e) {
+    if (e.which == 13) {
+      go();
+    }
+  }).on('typeahead:selected', function(e) {
+    go();
+  });
+</script>
+<!-- END REDOX: search bar -->
+
+<div class="site">
+  <div class="title">
+    <a href="/mojombo/">Tom Preston-Werner</a>
+    <a class="extra" href="/mojombo/">home</a>
+  </div>
+  
+  <div id="post">
+<h1>Designer, Architect, Developer</h1>
+
+<p class="meta">11 Dec 2010 - San Francisco</p>
+
+
+<p>I've written a nice blog post for <strong>24 Ways to Start</strong>, the advent calendar for
+entrepreneurs. You should check it out, it's called: <a href="http://24waystostart.com/2010/designer-architect-developer/">Designer, Architect,
+Developer</a>.</p>
+
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span>22 Nov 2011</span> &raquo; <a href="/mojombo/2011/11/22/open-source-everything.html">Open Source (Almost) Everything</a></li>
+    
+      <li><span>03 May 2011</span> &raquo; <a href="/mojombo/2011/05/03/rejected-bio-from-the-setup.html">Rejected Bio from The Setup</a></li>
+    
+      <li><span>29 Mar 2011</span> &raquo; <a href="/mojombo/2011/03/29/ten-lessons-from-githubs-first-year.html">Ten Lessons from GitHub's First Year</a></li>
+    
+  </ul>
+</div>
+  
+  <div class="footer">
+    <div class="contact">
+      <p>
+        Tom Preston-Werner<br />
+        Cofounder of <a href="http://github.com/">GitHub</a><br />
+        tom@mojombo.com
+      </p>
+    </div>
+    <div class="contact">
+      <p>
+        <a href="http://github.com/mojombo/">github.com/mojombo</a><br />
+        <a href="http://twitter.com/mojombo/">twitter.com/mojombo</a><br />
+        <a href="http://flickr.com/photos/mojombo/">flickr.com/photos/mojombo</a>
+      </p>
+    </div>
+    <div class="rss">
+      <a href="http://feeds.feedburner.com/tom-preston-werner">
+        <img src="/mojombo/images/rss.png" alt="Subscribe to RSS Feed" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<a href="http://github.com/redox/mojombo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+
+<!-- ClickTale Bottom part -->
+<div id="ClickTaleDiv" style="display: none;"></div>
+<script type="text/javascript">
+if(document.location.protocol!='https:')
+  document.write(unescape("%3Cscript%20src='http://s.clicktale.net/WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if(typeof ClickTale=='function') ClickTale(206,0.3,"www03");
+</script>
+<!-- ClickTale end of Bottom part -->
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-6016902-1");
+pageTracker._trackPageview();
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>
